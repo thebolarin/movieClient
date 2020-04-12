@@ -1,7 +1,7 @@
 module.exports = {
     // ...other vue-cli plugin options...
     pwa: {
-      name: 'My App',
+      name: 'Check DC',
       themeColor: '#2a4365',
       msTileColor: '#000000',
       appleMobileWebAppCapable: 'yes',
