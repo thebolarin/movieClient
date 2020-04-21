@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.e63201ab18c6ca804fa9a4161c9a7caa.js"
+  "/precache-manifest.4c5c7c039b38dbee51620e2a3704efd9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "check-dc"});

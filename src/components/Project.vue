@@ -1,10 +1,10 @@
-<template>
+<template >
   <div>
-    <h1 @click="modal=false" class="logo">Check-DC Movies</h1>
+    <h1 class="logo">Check-DC Movies</h1>
 
     <div class="section_a">
       <div class="row">
-        <div class="col m3 s3 l3 hide-on-down">
+        <div class="col m3 s3 l3 hide-on-down" @click="bringBack()">
           <div class="input-field center">
             <select v-model="tableData.length" @change="getMovies()">
               <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
@@ -18,7 +18,7 @@
                 id
                 name="email"
                 type="text"
-                v-model="search"
+                v-model="tableData.sea"
                 @input="filterSearch"
                 autocomplete="off"
                 @focus="modal=true"
@@ -119,7 +119,6 @@ export default {
 
     return {
       movies: [],
-      search: "",
       modal: false,
       filteredSearchs: [],
       columns: columns,
@@ -130,7 +129,7 @@ export default {
       tableData: {
         page: 0,
         length: 30,
-        search: "",
+        sea: "",
         column: 0,
         dir: 1
       },
@@ -149,20 +148,34 @@ export default {
     };
   },
   methods: {
-     filterSearch() {
-      this.filteredSearchs = this.movies.filter(element => {
-        return element.title.startsWith(this.search);
-      });
+    filterSearch() {
+      const bring = this.tableData.sea;
+      if (bring) {
+        this.filteredSearchs = this.movies.filter(element => {
+          return element.title.startsWith(this.tableData.sea);
+        });
+      } else {
+        this.bringBack();
+      }
+
       console.log(this.filteredSearch);
     },
-   
+
     setSearch(search) {
-      this.search = search.title;
+      //  console.log(this.tabledata.sea);
+      this.tableData.sea = search.title;
+      this.getMovies();
+
       this.modal = false;
     },
-    getMovies(url = "/allData") {
+    bringBack() {
+      this.modal = false;
+      this.getMovies();
+    },
+    getMovies() {
+      console.log(this.tableData);
       axios
-        .get(url, { params: this.tableData })
+        .get("/allData", { params: this.tableData })
         .then(res => {
           const data = res.data.movies;
           const pageData = res.data;
